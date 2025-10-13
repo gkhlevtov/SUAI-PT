@@ -19,4 +19,7 @@ public:
     void Edit() override;
     void Save(std::ofstream &file) const override;
     void Load(std::ifstream &file) override;
+
+    Conference* Clone() const override;
+    ConfType Type() const override;
 };
