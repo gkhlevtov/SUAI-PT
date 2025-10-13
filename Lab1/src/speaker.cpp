@@ -31,7 +31,7 @@ Speaker::~Speaker()
 void Speaker::Show() const
 {
     // Вывод всех полей
-    std::cout << "SPEAKER — Name: " << name
+    std::cout << "SPEAKER - Name: " << name
               << " | Org: " << organization
               << " | Report: " << report
               << " | Annotation: " << annotation
