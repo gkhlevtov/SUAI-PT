@@ -30,7 +30,7 @@ Admin::~Admin()
 // Отображение информации об администраторе
 void Admin::Show() const
 {
-    std::cout << "ADMIN - Name: " << name
+    std::cout << "ADMIN   - Name: " << name
               << " | Position: " << position
               << " | Responsibility: " << responsibility
               << "\n";
