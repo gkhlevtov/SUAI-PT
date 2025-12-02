@@ -1,0 +1,8 @@
+Software engineering involves many concepts, including design patterns,
+version control, testing, and internationalization. When developers
+discuss project requirements, the term internationalization may appear
+multiple times, especially in applications intended for global users.
+Although not every project needs internationalization, understanding its
+principles helps create more flexible and scalable software solutions.
+In some cases, internationalization becomes a key requirement for
+product growth.
