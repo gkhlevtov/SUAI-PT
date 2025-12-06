@@ -1,30 +1,13 @@
-#include <iostream>
-#include <limits>
 #include "include/filetask.h"
-
-int readInt(const std::string &prompt)
-{
-    int value;
-    while (true)
-    {
-        std::cout << prompt;
-        if (std::cin >> value)
-        {
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            return value;
-        }
-        else
-        {
-            std::cout << "Invalid input. Try again.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-    }
-}
+#include "include/sign_manager.h"
+#include "include/utils.h"
 
 int main()
 {
+    SignManager manager;
+
     bool running = true;
+    bool taskLoop = false;
 
     while (running)
     {
@@ -38,14 +21,130 @@ int main()
         switch (choice)
         {
         case 1:
-            std::cout << "\n=== Task 1 STUB ===\n";
-            std::cout << "NOT READY.\n\n";
+        {
+            taskLoop = true;
+            while (taskLoop)
+            {
+                std::cout << "\n=== Task 1: SIGN Database ===\n";
+                std::cout << "1. Add record\n";
+                std::cout << "2. Add record at position\n";
+                std::cout << "3. Remove record\n";
+                std::cout << "4. Edit record\n";
+                std::cout << "5. Show all records\n";
+                std::cout << "6. Sort by birthday\n";
+                std::cout << "7. Search by last name\n";
+                std::cout << "8. Return to main menu\n";
+
+                int c = readInt("\nSelect an option: ");
+
+                switch (c)
+                {
+                case 1:
+                {
+                    SIGN s;
+                    try
+                    {
+                        std::cin >> s;
+                        manager.pushBack(s);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cout << "Error: " << e.what() << "\n";
+                    }
+                    break;
+                }
+
+                case 2:
+                {
+                    int pos = readInt("Enter position: ");
+
+                    if (pos < 0 || pos > manager.getSize())
+                    {
+                        std::cout << "Error: Invalid index for insertion\n";
+                        break;
+                    }
+
+                    SIGN s;
+                    try
+                    {
+                        std::cin >> s;
+                        manager.addAt(pos, s);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cout << "Error: " << e.what() << "\n";
+                    }
+                    break;
+                }
+
+                case 3:
+                {
+                    int pos = readInt("Enter index to remove: ");
+                    try
+                    {
+                        manager.removeAt(pos);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cout << "Error: " << e.what() << "\n";
+                    }
+                    break;
+                }
+
+                case 4:
+                {
+                    int pos = readInt("Enter index: ");
+                    try
+                    {
+                        manager.editAt(pos);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        std::cout << "Error: " << e.what() << "\n";
+                    }
+                    break;
+                }
+
+                case 5:
+                    manager.printAll();
+                    break;
+
+                case 6:
+                    manager.sortByBirthday();
+                    std::cout << "Sorted.\n";
+                    break;
+
+                case 7:
+                {
+                    std::string ln = readLine("Enter last name: ");
+                    int idx = manager.findByLastName(ln);
+                    if (idx == -1)
+                    {
+                        std::cout << "Entry not found.\n";
+                    }
+                    else
+                    {
+                        std::cout << "Found at index " << idx << ":\n";
+                        manager.printOne(idx);
+                    }
+                    break;
+                }
+
+                case 8:
+                    taskLoop = false;
+                    break;
+
+                default:
+                    std::cout << "Invalid option.\n";
+                }
+            }
             break;
+        }
 
         case 2:
         {
-            bool subRunning = true;
-            while (subRunning)
+            taskLoop = true;
+            while (taskLoop)
             {
                 std::cout << "\n=== Task 2: File Processing ===\n";
                 std::cout << "1. Process file\n";
@@ -60,7 +159,7 @@ int main()
                     break;
 
                 case 2:
-                    subRunning = false;
+                    taskLoop = false;
                     break;
 
                 default:
@@ -69,6 +168,7 @@ int main()
             }
             break;
         }
+
         case 3:
             running = false;
             break;
