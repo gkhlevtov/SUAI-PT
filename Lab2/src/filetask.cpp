@@ -1,19 +1,8 @@
 #include "../include/filetask.h"
+#include "../include/utils.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <cctype>
-
-// Приведение к нижнему регистру
-static std::string toLower(const std::string &s)
-{
-    std::string result = s;
-    for (char &c : result)
-    {
-        c = std::tolower(c);
-    }
-    return result;
-}
 
 // Очистка слова от пунктуации по краям
 static std::string normalizeWord(const std::string &w)
